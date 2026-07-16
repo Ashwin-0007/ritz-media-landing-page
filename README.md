@@ -1,56 +1,66 @@
-# Ritz Media World — Homepage
+# Ritz Media World — Premium Homepage
 
-A pixel-faithful React build of the **Ritz Media World** homepage from Figma
-(node `262-19`, "R_Homepage"), built with **Vite + React + Tailwind CSS**.
+A pixel-faithful, high-end React build of the **Ritz Media World** homepage, migrated to **Next.js (App Router) + TypeScript** with custom **GSAP cinematic animations** and **Lenis smooth scrolling**.
+
+---
 
 ## Stack
-- **Vite** (React) — dev server & build
-- **Tailwind CSS** — styling with exact Figma values (colors, spacing, type)
+- **Next.js** (React) — Server & Client-side rendering (App Router)
+- **TypeScript** — Full type safety across components and animation utilities
+- **Tailwind CSS** — Styling with exact Figma specs (colors, spacing, typography)
+- **GSAP & GSAP ScrollTrigger** — Advanced page reveals, staggers, and parallax timelines
+- **Lenis** — Smooth scroll engine synchronized directly with GSAP's global ticker
 - **Fonts** — League Spartan (headings) + Montserrat (body), loaded from Google Fonts
 
-## Getting started
+---
+
+## Getting Started
+To run the project locally, install the dependencies and launch the Next.js development server:
+
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # production build → dist/
-npm run preview  # preview the build
+npm run dev      # http://localhost:3000
 ```
 
-## How it's structured
-The design is authored on a fixed **1440 px** canvas. `App.jsx` scales that
-canvas to fit narrower viewports (`transform: scale`) so proportions stay exact.
+To build and check the production outputs:
 
-Sections (top → bottom), each in `src/components/`:
+```bash
+npm run build    # creates production build inside .next/
+npm run start    # runs the production server
+```
 
-| Component | Figma frame | Notes |
+---
+
+## Animation & Interaction System
+This application features a custom, high-end interaction layer built on top of the original layout structures:
+
+1. **Lenis Scroll Engine**: Custom momentum scroll wrapper ([SmoothScroll.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/SmoothScroll.tsx)) linked with the GSAP ScrollTrigger update loops. Animations reset and replay dynamically as you scroll back and forth through the page.
+2. **Custom Cinematic Cursor Follower**: An elegant hardware-accelerated circular cursor ([CursorFollower.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/CursorFollower.tsx)) that tracks mouse movements with sub-frame precision. It features a backdrop-difference blend mode and scales dynamically on hover over links, buttons, cards, and images.
+3. **Magnetic Hover Snapping**: A spring-based elastic snapping hook ([useMagnetic.ts](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/lib/animations/hooks/useMagnetic.ts)) that draws elements slightly towards the cursor when hovered and snaps them back on mouse leave. Applied to the header menu, hero sound toggle, and About US buttons.
+4. **Heading Text Reveals**: Custom slide-up line masking transitions ([utils.ts](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/lib/animations/utils.ts)) that hide text lines using `overflow-hidden` wraps and trigger clean cascading fades as headings scroll into view.
+5. **Image Reveals & Parallax**: Scale-down parallax transitions ([utils.ts](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/lib/animations/utils.ts)) applied to background overlays, testimonial assets, and watermarks to create subtle visual depth.
+
+---
+
+## Workspace Structure
+The design layout is authored on a fixed **1440px** viewport. `page.tsx` dynamically scales this root container down to match tablet, laptop, and mobile widths (`transform: scale`) while keeping all proportions pixel-faithful.
+
+Sections (top → bottom) located in `src/components/`:
+
+| Component | File Path | Interaction & Animation Notes |
 |---|---|---|
-| `Header` | header | Navy bar, gold logo, nav + hamburger |
-| `Hero` | Frame 105437 | Full-bleed cinematic image |
-| `AboutBand` | Group 105457 | Topographic strip + glass wash + "About US" pill |
-| `Monogram` | Component 9 | Decorative outlined "R" |
-| `Services` | Frame 106306 | Numbered 01–06 list + overlapping model image |
-| `Testimonials` | Frame 106307 | Quote, Eldeco Group, pagination dots |
-| `WordCloud` | Frame 117 | Scattered service names over red-washed image |
-| `Footer` | footer | Link columns, partner logos, "RITZ MEDIAWORLD" wordmark |
+| `Header` | [Header.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Header.tsx) | Solid navy brand bar with magnetic menu toggle button and underline link slides. |
+| `Hero` | [Hero.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Hero.tsx) | Timeline-based scale entrance (1.06 → 1.0) on background video with a magnetic sound switch. |
+| `AboutBand` | [AboutBand.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/AboutBand.tsx) | Line-by-line slide heading reveal, staggered copy text, and magnetic "About US" pill. |
+| `Monogram` | [Monogram.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Monogram.tsx) | Scroll-triggered entrance fade and zoom-out on the crisp "R" monogram card. |
+| `Services` | [Services.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Services.tsx) | Staggered rows sliding entrance, zoom-in on hover rows, and scale-in reveal on the model graphic. |
+| `Testimonials` | [Testimonials.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Testimonials.tsx) | Cascade reveal on testimonial quotes, scroll-linked parallax on the building image. |
+| `WordCloud` | [WordCloud.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/WordCloud.tsx) | Scattered service tags staggering in on viewport entry, parallax background watermark depth. |
+| `Footer` | [Footer.tsx](file:///c:/Users/Dell/Desktop/projects/ritz-media-landing-page/Ashwin/src/components/Footer.tsx) | Staggered fade reveals on text link columns, partner badges, and final legal copyright text. |
 
-## Assets
-All images in `public/assets/` were exported directly from the Figma file via
-the REST API, so they are the original design assets.
+---
 
-## Videos (hero + monogram)
-The Figma **prototype** plays a background video in the **hero** and inside the
-**"R" monogram**. Figma's REST API does **not** expose video files, so the clip
-was supplied manually as `public/assets/video-about.mp4`.
-
-- **Hero** — the video plays full-bleed (auto-play, looped, muted).
-- **Monogram** — the same video is masked to the letter silhouette. The mask
-  (`public/assets/monogram-mask.png`) was reconstructed from the Figma vector's
-  `vectorNetwork` and rasterised to align 1:1 with the outline. The crisp
-  outline (`monogram.png`) is layered on top.
-
-To swap the clip, replace `video-about.mp4` (keep the same filename).
-
-## Colors
-- Header navy `#0d1334` · Footer/word-cloud navy `#0e1125`
-- Gold logo gradient `#eda021 → #875b13`
-- Quote red `#631c09`
+## Development Standards
+- **Performance**: Animations are restricted strictly to `transform` and `opacity` to maintain 60 FPS GPU-accelerated performance.
+- **Cleanup**: All ScrollTrigger instances and event listeners are properly disposed of using React-compliant lifecycle cleanup inside standard GSAP Context scopes.
+- **Accessibility**: Support for `prefers-reduced-motion` is built directly into all custom hooks and scroll controllers, falling back gracefully to static layout styling when requested by the OS.
