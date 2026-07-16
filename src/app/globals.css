@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The design is authored at 1440px. This wrapper scales the whole
+   fixed-width canvas down on narrower viewports so it stays pixel-faithful. */
+.design-root {
+  width: 1440px;
+  transform-origin: top left;
+  margin: 0 auto;
+}
+
+.font-spartan {
+  font-family: 'League Spartan', sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.bg-navy-header {
+  background-color: #0e1125;
+}
+
+.bg-navy-dark {
+  background-color: #0e1125;
+}
+
+/* --- PREMIUM HOVER EFFECTS & MICRO-INTERACTIONS --- */
+
+/* Buttons hover effect */
+.btn-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.btn-hover:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-hover:hover .btn-arrow {
+  transform: translate(2px, -2px);
+}
+.btn-arrow {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Card hover effect (rows in Services) */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+.card-hover:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Image zoom on hover */
+.img-hover {
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.img-hover:hover {
+  transform: scale(1.03);
+}
+
+/* Nav links underline hover animation */
+.nav-link-hover {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.nav-link-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Simple icon scale on hover */
+.btn-icon-hover {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.btn-icon-hover:hover {
+  transform: scale(1.08);
+}
